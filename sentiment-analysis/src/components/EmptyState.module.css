@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9fafb;
+  border-radius: 50%;
+  margin-bottom: 1.25rem;
+  color: #d1d5db;
+}
+
+.icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #4b5563;
+  margin: 0 0 0.5rem 0;
+}
+
+.message {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  margin: 0;
+  max-width: 320px;
+  line-height: 1.5;
+}

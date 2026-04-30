@@ -1,0 +1,68 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+  margin: 2rem 0;
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fee2e2;
+  border-radius: 50%;
+  color: #dc2626;
+}
+
+.icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #991b1b;
+  margin: 0 0 0.125rem 0;
+}
+
+.message {
+  font-size: 0.8125rem;
+  color: #b91c1c;
+  margin: 0;
+}
+
+.retryButton {
+  flex-shrink: 0;
+  padding: 0.5rem 1rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: #ffffff;
+  background-color: #dc2626;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.retryButton:hover {
+  background-color: #b91c1c;
+}
+
+.retryButton:active {
+  transform: scale(0.98);
+}
