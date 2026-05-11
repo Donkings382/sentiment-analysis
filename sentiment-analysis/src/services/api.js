@@ -1,4 +1,6 @@
-const API_BASE_URL = 'http://localhost:8000';
+// const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = import.meta.env.PROD ? '' : 'http://localhost:8000';
+
 
 export async function searchTweets(query, startDate = null, endDate = null, maxResults = 100) {
   try {

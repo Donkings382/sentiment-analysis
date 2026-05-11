@@ -83,3 +83,4 @@ Thumbs.db
 
 # Playwright
 .playwright/
+.vercel

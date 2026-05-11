@@ -1,201 +1,200 @@
-# Twitter Scraper - Phase 6: Sentiment Analysis
+# Twitter Sentiment Analysis Platform
 
-A production-grade Twitter scraper with PostgreSQL database storage and VADER + TextBlob sentiment analysis.
+**Live Demo:** [https://sentiment-analysis-peach.vercel.app](https://sentiment-analysis-peach.vercel.app)
 
-## 🚀 Current Features (Phase 6)
+A full-stack web application that analyzes Twitter sentiment in real-time using natural language processing (NLP). Search any topic and instantly understand public opinion through AI-powered sentiment analysis.
 
-✅ **Official Twitter API v2** - Uses Bearer Token authentication  
-✅ **Playwright Stealth Mode** - Enhanced anti-bot detection bypass  
-✅ **Human-like Behavior** - Random delays, mouse movements, gradual scrolling  
-✅ **PostgreSQL Database** - Persistent storage with full CRUD operations  
-✅ **FastAPI Backend** - RESTful API with background task processing  
-✅ **Sentiment Analysis** - VADER + TextBlob combined approach  
-✅ **Analysis Tracking** - Separate analysis status and JSON export  
-✅ **Job Management** - Search, filter, and track all scraping jobs
+## 🎯 Real-World Use Case
 
-## Quick Start
+**Scenario:** A marketing manager at a beverage company wants to understand public reaction to their new product launch.
 
-### 1. Install Dependencies
-```bash
-pip install -r requirements.txt
-playwright install chromium
-```
+**Problem:** Manually reading thousands of tweets is impossible. They need instant insights into whether the sentiment is positive, negative, or neutral.
 
-### 2. Setup PostgreSQL Database
-See [SETUP_PHASE4.md](SETUP_PHASE4.md) for detailed PostgreSQL setup instructions.
+**Solution:** 
+1. Enter search query: "new energy drink launch"
+2. Get instant analysis of tweets with sentiment scores
+3. View summary: 65% positive, 20% neutral, 15% negative
+4. Identify trending concerns or praise points
+5. Make data-driven decisions for marketing strategy
 
-### 3. Configure Environment
-Create a `.env` file:
-```
-DATABASE_URL=postgresql://postgres:your_password@localhost:5432/scraper_db
-```
+**Other Use Cases:**
+- **Brand Monitoring:** Track brand reputation and customer satisfaction
+- **Crisis Management:** Detect negative sentiment spikes early
+- **Product Feedback:** Analyze customer reactions to new features
+- **Competitor Analysis:** Compare sentiment across competing products
+- **Political Campaigns:** Gauge public opinion on policies
+- **Event Monitoring:** Track real-time reactions during live events
 
-### 4. Start API Server
-```bash
-python api_server.py
-```
+## 🚀 Features
 
-API will be available at:
-- Server: http://localhost:8000
-- Docs: http://localhost:8000/docs
+- **Real-time Search:** Query Twitter data by keyword with date filters
+- **AI Sentiment Analysis:** Dual-engine analysis (VADER + TextBlob) for accuracy
+- **Visual Dashboard:** Clean UI showing sentiment distribution and confidence scores
+- **Tweet Metrics:** View likes, retweets, and replies for each tweet
+- **Summary Reports:** Get overall sentiment with detailed explanations
+- **PostgreSQL Storage:** All searches and results saved for historical analysis
 
-## 📊 Phase 6: Sentiment Analysis
+## 🛠️ Tech Stack
 
-### Workflow:
-1. **Scrape** → POST `/scrape` → Saves to PostgreSQL + JSON
-2. **Analyze** → POST `/analyze/{job_id}` → Runs sentiment analysis
-3. **Results** → GET `/sentiment/{job_id}` → Get sentiment statistics
+**Frontend:**
+- React 18 + Vite
+- CSS Modules
+- Responsive Design
 
-### Example Usage:
+**Backend:**
+- FastAPI (Python)
+- Twitter API v2
+- NLTK (VADER Sentiment)
+- TextBlob (Polarity Analysis)
 
-#### 1. Start Scraping Job
-```bash
-curl -X POST http://localhost:8000/scrape \
-  -H "Content-Type: application/json" \
-  -d '{
-    "query": "Wizkid",
-    "max_results": 20,
-    "scraper_type": "twitter"
-  }'
-```
+**Database:**
+- PostgreSQL (Aiven Managed)
 
-#### 2. Check Status
-```bash
-curl http://localhost:8000/status/{job_id}
-```
+**Deployment:**
+- Vercel (Frontend + Backend)
 
-#### 3. Analyze Sentiment
-```bash
-curl -X POST http://localhost:8000/analyze/{job_id}
-```
-
-#### 4. Get Sentiment Results
-```bash
-curl http://localhost:8000/sentiment/{job_id}
-```
-
-### Sentiment Scoring:
-- **VADER Score** - Social media optimized (-1 to +1)
-- **TextBlob Score** - General text sentiment (-1 to +1)
-- **Combined Score** - Average of both scores
-- **Label** - Positive (≥0.15), Negative (≤-0.15), Neutral (between)
-
-### Output Files:
-- **Raw Data**: `{query}_{job_id}_{timestamp}.json`
-- **Analyzed Data**: `{query}_{job_id}_analyzed_{timestamp}.json`
-
-See [PHASE6_SENTIMENT.md](PHASE6_SENTIMENT.md) for complete documentation.
-
-## 📡 API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/` | API information |
-| POST | `/scrape` | Start scraping job |
-| GET | `/status/{job_id}` | Get job status and results |
-| GET | `/jobs` | List all jobs |
-| GET | `/search` | Search jobs by query/status |
-| GET | `/statistics` | Get overall statistics |
-| POST | `/analyze/{job_id}` | Analyze sentiment for job |
-| GET | `/sentiment/{job_id}` | Get sentiment statistics |
-| GET | `/health` | Health check |
-
-## 🧪 Testing
-
-### Test Full Workflow:
-```bash
-python test_phase6.py
-```
-
-This will:
-1. Create a scraping job
-2. Wait for completion
-3. Trigger sentiment analysis
-4. Display results with sentiment scores
-
-### Manual Testing:
-```bash
-# Test scraper directly
-python test_scraper.py
-
-# Test sentiment on existing data
-python scrape_x.py
-```
-
-## 📁 Project Structure
+## 📦 Project Structure
 
 ```
 scrapeX/
-├── api_server.py              # FastAPI server (Phase 6)
-├── scraper_engine.py          # Core scraping logic with stealth
-├── sentiment_analyzer.py      # VADER + TextBlob sentiment analysis
-├── database.py                # SQLAlchemy models (Jobs, Results)
-├── db_service.py              # Database service layer
-├── test_scraper.py            # Direct scraper testing
-├── test_phase6.py             # Phase 6 workflow testing
-├── scrape_x.py                # Standalone sentiment analysis
-├── requirements.txt           # Python dependencies
-├── .env                       # Environment configuration
-├── PHASE6_SENTIMENT.md        # Phase 6 documentation
-└── SETUP_PHASE4.md            # PostgreSQL setup guide
+├── backend/
+│   ├── api_server.py          # FastAPI REST API
+│   ├── scrapers/              # Twitter data fetching
+│   ├── analyzers/             # Sentiment analysis engine
+│   ├── models/                # Database models
+│   └── services/              # Business logic
+├── sentiment-analysis/        # React frontend
+│   └── src/
+│       ├── components/        # UI components
+│       └── services/          # API integration
+├── data/
+│   ├── mock_api_data.json     # Development mock data
+│   └── exports/               # JSON exports
+└── vercel.json                # Deployment config
 ```
 
-## 🗄️ Database Schema
+## 🏃 Quick Start
 
-### Jobs Table
-- `job_id` (PK) - Unique job identifier
-- `query` - Search query
-- `scraper_type` - 'twitter' or 'generic'
-- `status` - queued, processing, completed, failed
-- `analysis_status` - pending, processing, completed, failed
-- `results_count` - Number of results scraped
-- `filename` - Raw data JSON filename
-- `analysis_filename` - Analyzed data JSON filename
-- Timestamps: created_at, started_at, completed_at, analyzed_at
+### Prerequisites
+- Python 3.9+
+- Node.js 18+
+- PostgreSQL database
 
-### Results Table
-- `result_id` (PK) - Auto-increment ID
-- `job_id` (FK) - Links to Jobs table
-- `text` - Tweet content
-- `date`, `likes`, `replies`, `retweets`, `url`
-- `vader_score` - VADER sentiment score
-- `textblob_score` - TextBlob sentiment score
-- `combined_score` - Average sentiment score
-- `sentiment_label` - Positive, Neutral, Negative
+### Backend Setup
 
-## 🎯 Development Phases
+```bash
+cd backend
+pip install -r requirements.txt
 
-- ✅ **Phase 1**: Foundation (Scraper Engine)
-- ✅ **Phase 2**: Background Processing (FastAPI + Async)
-- ✅ **Phase 3**: Enhanced Stealth (playwright-stealth)
-- ✅ **Phase 4**: PostgreSQL Database
-- ⏭️ **Phase 5**: Proxy Rotation (SKIPPED for MVP)
-- ✅ **Phase 6**: Sentiment Analysis (CURRENT)
+# Configure environment
+cp ../.env.example ../.env
+# Edit .env with your credentials
 
-## 💡 Key Design Decisions
+# Initialize database
+python -c "from models.database import init_db; init_db()"
 
-1. **Database-First Approach** - PostgreSQL is single source of truth
-2. **Separate Analysis** - Analyze after scraping (not during)
-3. **Background Processing** - Non-blocking async tasks
-4. **Stealth Mode** - Human-like behavior + playwright-stealth
-5. **No Proxies (MVP)** - Cost-effective with delays + stealth
+# Run server
+python api_server.py
+```
 
-## 🔧 Requirements
+### Frontend Setup
 
-- Python 3.8+
-- PostgreSQL 12+
-- Chromium (installed via Playwright)
+```bash
+cd sentiment-analysis
+npm install
+npm run dev
+```
 
-## 📚 Documentation
+Visit `http://localhost:5173`
 
-- [PHASE6_SENTIMENT.md](PHASE6_SENTIMENT.md) - Sentiment analysis guide
-- [SETUP_PHASE4.md](SETUP_PHASE4.md) - PostgreSQL setup
-- API Docs: http://localhost:8000/docs (when server running)
+## 🔧 Configuration
 
-## 🐛 Troubleshooting
+### Environment Variables
 
-See [PHASE6_SENTIMENT.md](PHASE6_SENTIMENT.md) for common issues and solutions.
+```env
+# Database
+DATABASE_URL=postgresql://user:pass@host:port/db
+
+# API Mode (development uses mock data)
+API_MODE=development
+
+# Twitter API (production only)
+TWITTER_BEARER_TOKEN=your_token_here
+```
+
+### Development Mode
+Uses mock data from `data/mock_api_data.json` - no Twitter API required.
+
+Available mock queries: `fuel price`, `wizkid`, `climate change`
+
+### Production Mode
+Set `API_MODE=production` and provide valid `TWITTER_BEARER_TOKEN`.
+
+## 📊 API Endpoints
+
+### POST `/api/search`
+Search and analyze tweets
+
+**Request:**
+```json
+{
+  "query": "climate change",
+  "start_date": "2024-01-01T00:00:00Z",
+  "end_date": "2024-01-31T23:59:59Z",
+  "max_results": 100
+}
+```
+
+**Response:**
+```json
+{
+  "query": "climate change",
+  "total": 100,
+  "tweets": [...],
+  "summary": {
+    "overall_sentiment": "Neutral",
+    "positive": 45,
+    "negative": 30,
+    "neutral": 25,
+    "average_score": 0.12,
+    "confidence": "Medium",
+    "explanation": "..."
+  }
+}
+```
+
+## 🎨 Sentiment Analysis
+
+**Dual-Engine Approach:**
+1. **VADER:** Optimized for social media text (emojis, slang, capitalization)
+2. **TextBlob:** General-purpose polarity analysis
+
+**Combined Score:** Weighted average for balanced results
+
+**Classification:**
+- Positive: score > 0.05
+- Negative: score < -0.05
+- Neutral: -0.05 ≤ score ≤ 0.05
+
+## 🚀 Deployment
+
+Deployed on Vercel with:
+- Serverless FastAPI backend
+- Static React frontend
+- Managed PostgreSQL (Aiven)
+
+```bash
+vercel
+```
 
 ## 📝 License
 
-Built from scratch per project requirements - no paid services used.
+MIT
+
+## 👤 Author
+
+Built with ❤️ for real-time social media insights
+
+---
+
+**Live App:** [https://sentiment-analysis-peach.vercel.app](https://sentiment-analysis-peach.vercel.app)
